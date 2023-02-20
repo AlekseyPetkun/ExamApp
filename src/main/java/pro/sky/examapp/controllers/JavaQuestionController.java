@@ -45,7 +45,7 @@ public class JavaQuestionController {
                                                 @RequestParam(required = false) String answer) throws ValidationException {
 //        try {
 
-            return ResponseEntity.ok(javaQuestionService.add(question, answer));
+        return ResponseEntity.ok(javaQuestionService.add(question, answer));
 //        } catch (ValidationException e) {
 //            e.getStackTrace();
 //            return ResponseEntity.notFound().build();
@@ -74,8 +74,10 @@ public class JavaQuestionController {
             responseCode = "200",
             description = "Вопрос с ответом были удалены"
     )
-    public ResponseEntity<Void> deleteQuestion(@RequestBody Question question) {
-        javaQuestionService.remove(question);
+    public ResponseEntity<Void> deleteQuestion(@RequestParam(required = false) String question,
+                                               @RequestParam(required = false) String answer) {
+
+        javaQuestionService.remove(new Question(question, answer));
         return ResponseEntity.ok().build();
     }
 }
