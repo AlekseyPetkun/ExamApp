@@ -5,12 +5,9 @@ import org.springframework.stereotype.Service;
 import pro.sky.examapp.exceptions.QuestionLimitException;
 import pro.sky.examapp.model.Question;
 import pro.sky.examapp.services.ExaminerService;
-import pro.sky.examapp.services.JavaQuestionService;
+import pro.sky.examapp.services.QuestionService;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Бизнес-логика по работе с экзаменационными вопросами.
@@ -19,23 +16,25 @@ import java.util.Random;
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
     //    private final Random random = new Random();
-    private final JavaQuestionService questionService;
+    private final QuestionService javaQuestionService;
 
-    public ExaminerServiceImpl(@Qualifier("javaQuestionServiceImpl") JavaQuestionService questionService) {
-        this.questionService = questionService;
+
+    public ExaminerServiceImpl(@Qualifier("javaQuestionServiceImpl") QuestionService questionService) {
+        this.javaQuestionService = questionService;
     }
 
     @Override
     public Collection<Question> getQuestions(int amount) throws QuestionLimitException {
-        int size = questionService.getAll().size();
+        int size = javaQuestionService.getAll().size();
         if (size < amount) {
-            throw new QuestionLimitException(toString());
+            throw new QuestionLimitException("Заданное число вопросов превысило количество сохраненных");
         }
-        List<Question> listQuestions = new ArrayList<>();
+        Set<Question> listQuestions = new HashSet<>();
         int i = 0;
         while (i < amount) {
-            listQuestions.add(questionService.getRandomQuestion());
-            i++;
+            if (listQuestions.add(javaQuestionService.getRandomQuestion())) {
+                i++;
+            }
         }
         return listQuestions;
     }

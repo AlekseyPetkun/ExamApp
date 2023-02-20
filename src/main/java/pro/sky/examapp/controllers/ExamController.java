@@ -39,14 +39,14 @@ public class ExamController {
             responseCode = "200",
             description = "Список вопросов с ответами был получен"
     )
-    public ResponseEntity<Collection<Question>> getQuestions(@PathVariable int amount) {
-        try {
+    public ResponseEntity<Collection<Question>> getQuestions(@PathVariable int amount) throws QuestionLimitException {
+//        try {
             Collection<Question>amountQuestions = examinerService.getQuestions(amount);
             return ResponseEntity.ok(amountQuestions);
-        } catch (QuestionLimitException e) {
-            e.getStackTrace();
-//            throw new RuntimeException(e);
-            return ResponseEntity.notFound().build();
-        }
+//        } catch (QuestionLimitException e) {
+//            e.getStackTrace();
+////            throw new RuntimeException(e);
+//            return ResponseEntity.notFound().build();
+//        }
     }
 }

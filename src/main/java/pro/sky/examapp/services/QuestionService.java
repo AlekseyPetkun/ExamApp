@@ -9,7 +9,7 @@ import java.util.Collection;
  * Сервис по работе с вопросами по Java.
  */
 
-public interface JavaQuestionService {
+public interface QuestionService {
 
     /**
      * Получаем сущность в виде вопроса-ответа.
@@ -18,15 +18,15 @@ public interface JavaQuestionService {
      * @return сущность вопрос-ответ.
      * @throws ValidationException
      */
-    Question add(String question, String answer) throws ValidationException;
+    Question add(String question, String answer);
 
     /**
-     * Создаем и сохраняем сущность вопрос-ответ.
+     *
      * @param question сущность вопрос-ответ.
      * @return сохраненную сущность.
      * @throws ValidationException
      */
-    Question addAndSave(Question question) throws ValidationException;
+    Question addAndSave(Question question);
 
     /**
      * Удаляем сущность.

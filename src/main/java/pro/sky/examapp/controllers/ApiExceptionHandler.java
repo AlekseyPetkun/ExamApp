@@ -4,10 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pro.sky.examapp.exceptions.QuestionLimitException;
 import pro.sky.examapp.exceptions.ValidationException;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ApiExceptionHandler {
 
     @ExceptionHandler

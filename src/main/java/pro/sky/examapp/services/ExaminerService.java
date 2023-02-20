@@ -13,5 +13,5 @@ public interface ExaminerService {
      * @return список с заданным количеством вопросов.
      * @throws QuestionLimitException
      */
-    Collection<Question> getQuestions(int amount) throws QuestionLimitException;
+    Collection<Question> getQuestions(int amount);
 }

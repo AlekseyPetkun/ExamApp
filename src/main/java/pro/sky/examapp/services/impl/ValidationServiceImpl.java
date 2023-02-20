@@ -14,8 +14,8 @@ public class ValidationServiceImpl implements ValidationService {
         return question!=null
                 && question.getQuestion()!=null
                 && question.getAnswer()!=null
-                && question.getQuestion().isEmpty()
-                && question.getAnswer().isEmpty()
+                && !question.getQuestion().isEmpty()
+                && !question.getAnswer().isEmpty()
                 && !question.getQuestion().equals(question.getAnswer());
     }
 }
