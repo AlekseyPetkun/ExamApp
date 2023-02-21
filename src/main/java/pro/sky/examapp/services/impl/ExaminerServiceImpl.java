@@ -30,11 +30,9 @@ public class ExaminerServiceImpl implements ExaminerService {
             throw new QuestionLimitException("Заданное число вопросов превысило количество сохраненных");
         }
         Set<Question> listQuestions = new HashSet<>();
-        int i = 0;
-        while (i < amount) {
-            if (listQuestions.add(javaQuestionService.getRandomQuestion())) {
-                i++;
-            }
+
+        while (listQuestions.size() < amount) {
+            listQuestions.add(javaQuestionService.getRandomQuestion());
         }
         return listQuestions;
     }

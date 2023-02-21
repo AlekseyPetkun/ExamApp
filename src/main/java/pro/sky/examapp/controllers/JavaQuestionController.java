@@ -1,6 +1,8 @@
 package pro.sky.examapp.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,14 +44,13 @@ public class JavaQuestionController {
             description = "Вопрос с ответом не добавлен"
     )
     public ResponseEntity<Question> addQuestion(@RequestParam(required = false) String question,
-                                                @RequestParam(required = false) String answer) throws ValidationException {
-//        try {
-
-        return ResponseEntity.ok(javaQuestionService.add(question, answer));
-//        } catch (ValidationException e) {
-//            e.getStackTrace();
-//            return ResponseEntity.notFound().build();
-//        }
+                                                @RequestParam(required = false) String answer) {
+        try {
+            return ResponseEntity.ok(javaQuestionService.add(question, answer));
+        } catch (ValidationException e) {
+            e.getStackTrace();
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -77,7 +78,12 @@ public class JavaQuestionController {
     public ResponseEntity<Void> deleteQuestion(@RequestParam(required = false) String question,
                                                @RequestParam(required = false) String answer) {
 
-        javaQuestionService.remove(new Question(question, answer));
-        return ResponseEntity.ok().build();
+        try {
+            javaQuestionService.remove(new Question(question, answer));
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            e.getStackTrace();
+            return ResponseEntity.notFound().build();
+        }
     }
 }
