@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 /**
  * Описание сущности вопрос-ответ.
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Question {
+
     private String question;
     private String answer;
 }

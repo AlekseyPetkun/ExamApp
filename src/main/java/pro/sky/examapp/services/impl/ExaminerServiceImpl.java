@@ -12,12 +12,10 @@ import java.util.*;
 /**
  * Бизнес-логика по работе с экзаменационными вопросами.
  */
-
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
-    //    private final Random random = new Random();
-    private final QuestionService javaQuestionService;
 
+    private final QuestionService javaQuestionService;
 
     public ExaminerServiceImpl(@Qualifier("javaQuestionServiceImpl") QuestionService questionService) {
         this.javaQuestionService = questionService;
@@ -25,6 +23,7 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     @Override
     public Collection<Question> getQuestions(int amount) throws QuestionLimitException {
+
         int size = javaQuestionService.getAll().size();
         if (size < amount) {
             throw new QuestionLimitException("Заданное число вопросов превысило количество сохраненных");
