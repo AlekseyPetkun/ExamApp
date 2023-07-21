@@ -3,6 +3,7 @@ package pro.sky.examapp.controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,20 +16,16 @@ import pro.sky.examapp.services.ExaminerService;
 import java.util.Collection;
 
 /**
- *Контроллер для получения вопросов.
+ * Контроллер для получения вопросов.
  */
-
 @RestController
+@AllArgsConstructor
 @RequestMapping("/exam")
 @Tag(name = "API по работе с вопросами на экзамен",
         description = "Получение вопросов с ответами в случайном порядке")
 public class ExamController {
 
     private final ExaminerService examinerService;
-
-    public ExamController(ExaminerService examinerService) {
-        this.examinerService = examinerService;
-    }
 
     @GetMapping("/{amount}")
     @Operation(
@@ -40,13 +37,8 @@ public class ExamController {
             description = "Список вопросов с ответами был получен"
     )
     public ResponseEntity<Collection<Question>> getQuestions(@PathVariable int amount) throws QuestionLimitException {
-//        try {
-            Collection<Question>amountQuestions = examinerService.getQuestions(amount);
-            return ResponseEntity.ok(amountQuestions);
-//        } catch (QuestionLimitException e) {
-//            e.getStackTrace();
-////            throw new RuntimeException(e);
-//            return ResponseEntity.notFound().build();
-//        }
+
+        Collection<Question> amountQuestions = examinerService.getQuestions(amount);
+        return ResponseEntity.ok(amountQuestions);
     }
 }

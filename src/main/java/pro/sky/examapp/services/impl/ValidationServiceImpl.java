@@ -9,11 +9,12 @@ import pro.sky.examapp.services.ValidationService;
  */
 @Service
 public class ValidationServiceImpl implements ValidationService {
+
     @Override
     public boolean validate(Question question) {
-        return question!=null
-                && question.getQuestion()!=null
-                && question.getAnswer()!=null
+        return question != null
+                && question.getQuestion() != null
+                && question.getAnswer() != null
                 && !question.getQuestion().isEmpty()
                 && !question.getAnswer().isEmpty()
                 && !question.getQuestion().equals(question.getAnswer());

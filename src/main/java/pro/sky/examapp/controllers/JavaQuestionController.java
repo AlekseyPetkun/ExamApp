@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.examapp.exceptions.ValidationException;
@@ -19,22 +20,19 @@ import java.util.Collection;
  * Контроллер для CRUD-операций с вопросами.
  */
 @RestController
+@AllArgsConstructor
 @RequestMapping("/exam/java")
 @Tag(name = "API по работе с вопросами на экзамен по Java",
         description = "CRUD-операции для вопросов по экзамену")
 public class JavaQuestionController {
-    private final QuestionService javaQuestionService;
 
-    public JavaQuestionController(QuestionService questionService) {
-        this.javaQuestionService = questionService;
-    }
+    private final QuestionService javaQuestionService;
 
     @PostMapping
     @Operation(
             summary = "Создание вопроса с ответом",
             description = "Нужно написать вопрос и ответ"
     )
-
     @ApiResponse(
             responseCode = "200",
             description = "Вопрос с ответом был добавлен"
@@ -45,6 +43,7 @@ public class JavaQuestionController {
     )
     public ResponseEntity<Question> addQuestion(@RequestParam(required = false) String question,
                                                 @RequestParam(required = false) String answer) {
+
         try {
             return ResponseEntity.ok(javaQuestionService.add(question, answer));
         } catch (ValidationException e) {
@@ -63,6 +62,7 @@ public class JavaQuestionController {
             description = "Вопрос с ответом были найдены"
     )
     public ResponseEntity<Collection<Question>> getAllQuestions() {
+
         return ResponseEntity.ok(javaQuestionService.getAll());
     }
 
